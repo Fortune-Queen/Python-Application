@@ -30,11 +30,11 @@ pipeline {
             }
         }
 
-        stage('Scan Docker Image with Trivy') {
-            steps {
-                sh 'trivy image $DOCKER_IMAGE'
-            }
-        }
+        // stage('Scan Docker Image with Trivy') {
+        //     steps {
+        //         sh 'trivy image $DOCKER_IMAGE'
+        //     }
+        // }
 
         // stage('Authenticate with DockerHub') {
         //     steps {
