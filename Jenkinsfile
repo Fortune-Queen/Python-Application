@@ -32,7 +32,7 @@ pipeline {
         }
         stage(' Docker Run') {
             steps {
-                sh 'docker run -d $DOCKER_IMAGE .'
+                sh 'docker run -d $DOCKER_IMAGE '
             }
         }
          stage('Scan Docker Image with Trivy') {
