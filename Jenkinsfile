@@ -9,6 +9,7 @@ pipeline {
         DOCKERHUB_USERNAME = 'avneetkour'  // Replace with your DockerHub username
         DOCKERHUB_REPO = "${DOCKERHUB_USERNAME}/${IMAGE_NAME}" // DockerHub repository
         DOCKERHUB_CREDENTIALS = 'dockerhub-credentials1' // Jenkins DockerHub credentials ID
+        DOCKER_REGISTRY = 'docker.io' 
     }
 
     stages {
@@ -39,8 +40,10 @@ pipeline {
         stage('Authenticate with DockerHub') {
             steps {
                 // Authenticate with DockerHub
-                withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS, usernameVariable: DOCKER_USERNAME, passwordVariable: DOCKER_PASSWORD)]) {
-                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                     sh '''
+                            echo $DOCKER_PASSWORD | docker login $DOCKER_REGISTRY -u $DOCKER_USERNAME --password-stdin
+                        '''
                 }
             }
         }
