@@ -6,9 +6,9 @@ pipeline {
         DOCKER_IMAGE = 'helloworld-app:latest' // Replace with your desired image name
         IMAGE_TAG = 'latest'
         IMAGE_NAME = 'helloworld-app' // Image name
-        DOCKERHUB_USERNAME = 'avneetkour629@gmail.com'  // Replace with your DockerHub username
+        DOCKERHUB_USERNAME = 'avneetkour'  // Replace with your DockerHub username
         DOCKERHUB_REPO = "${DOCKERHUB_USERNAME}/${IMAGE_NAME}" // DockerHub repository
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials') // Jenkins DockerHub credentials ID
+        DOCKERHUB_CREDENTIALS = 'dockerhub-credentials1' // Jenkins DockerHub credentials ID
     }
 
     stages {
@@ -39,7 +39,7 @@ pipeline {
         stage('Authenticate with DockerHub') {
             steps {
                 // Authenticate with DockerHub
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS, usernameVariable: DOCKER_USERNAME, passwordVariable: DOCKER_PASSWORD)]) {
                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
                 }
             }
